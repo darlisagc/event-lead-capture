@@ -1554,46 +1554,127 @@ function getLangColor(lang) {
 }
 
 // ─── Recommendations DB ───
+// Sources: cardano-tool-compass, developers.cardano.org, adadev.io
 const RECO_DB = {
   Java: [
-    { name: 'Bloxbean Java SDK', desc: 'A comprehensive Java library for interacting with the Cardano blockchain — build transactions, manage wallets, and query on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Cardano Client Lib', desc: 'Comprehensive Java library for building transactions, managing wallets, and querying on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
     { name: 'Yaci DevKit', desc: 'Spin up local Cardano devnets instantly for rapid development and testing. Docker-based, zero config.', url: 'https://github.com/bloxbean/yaci-devkit', tag: 'DevTools' },
-    { name: 'Yaci Store', desc: 'A lightweight indexer and data store for Cardano blockchain data, designed for fast querying and integration.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
+    { name: 'Yaci Store', desc: 'Modular chain indexer and Spring Boot starter for building custom Cardano indexers.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
+    { name: 'Koios Java Client', desc: 'Java REST client library for interacting with Koios server instances for blockchain data.', url: 'https://github.com/cardano-community/koios-java-client', tag: 'API Client' },
   ],
   Kotlin: [
-    { name: 'Bloxbean Java SDK', desc: 'Fully compatible with Kotlin — build Cardano transactions, manage wallets, and query on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Cardano Client Lib', desc: 'Fully Kotlin-compatible — build Cardano transactions, manage wallets, and query on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Kogmios', desc: 'Kotlin implementation of Ogmios Client for Cardano node interaction via WebSocket.', url: 'https://github.com/projectNEWM/kogmios', tag: 'API Client' },
     { name: 'Yaci DevKit', desc: 'Spin up local Cardano devnets instantly for rapid development and testing.', url: 'https://github.com/bloxbean/yaci-devkit', tag: 'DevTools' },
-    { name: 'Yaci Store', desc: 'A lightweight indexer for Cardano blockchain data, perfect for backend Kotlin services.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
+    { name: 'Yaci Store', desc: 'Modular indexer for Cardano blockchain data, perfect for backend Kotlin services.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
   ],
   JavaScript: [
-    { name: 'Mesh SDK', desc: 'An open-source SDK to build Web3 applications on Cardano with React, Next.js and more.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
-    { name: 'Lucid Evolution', desc: 'A library for building Cardano transactions and off-chain code for smart contracts in JS/TS.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Mesh SDK', desc: 'Open-source framework providing numerous tools to build Web3 apps on Cardano with React, Next.js and more.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Lucid Evolution', desc: 'Highly scalable, production-ready transaction builder and off-chain framework for dApps.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Blaze Cardano', desc: 'Create Cardano transactions and off-chain code for Aiken contracts in JavaScript.', url: 'https://github.com/butaneprotocol/blaze-cardano', tag: 'Transactions' },
+    { name: 'Cardano JS SDK', desc: 'JavaScript SDK for interacting with Cardano with hardware wallet support.', url: 'https://github.com/input-output-hk/cardano-js-sdk', tag: 'SDK' },
   ],
   TypeScript: [
     { name: 'Mesh SDK', desc: 'Full TypeScript SDK to build Web3 apps on Cardano with first-class type safety.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
-    { name: 'Lucid Evolution', desc: 'TypeScript-native library for building Cardano transactions and interacting with smart contracts.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Lucid Evolution', desc: 'TypeScript-native transaction builder and off-chain framework for Cardano dApps.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Plu-ts', desc: 'TypeScript-embedded smart contract language and transaction creation library — write on-chain code in TS.', url: 'https://github.com/HarmonicLabs/plu-ts', tag: 'Smart Contracts' },
+    { name: 'Cardano Web3 JS', desc: 'TypeScript library for transactions, smart contracts, and cryptographic operations in Node.js and browsers.', url: 'https://github.com/xray-network/cardano-web3-js', tag: 'SDK' },
   ],
   Python: [
-    { name: 'PyCardano', desc: 'A Cardano library written in Python. Build and submit transactions, interact with smart contracts.', url: 'https://github.com/Python-Cardano/pycardano', tag: 'SDK' },
-    { name: 'OpShin', desc: 'Write Cardano smart contracts in pure Python — compiles to Plutus Core on-chain code.', url: 'https://github.com/OpShin/opshin', tag: 'Smart Contracts' },
+    { name: 'PyCardano', desc: 'Lightweight Python library for building and signing transactions; off-chain Plutus DApp development.', url: 'https://github.com/Python-Cardano/pycardano', tag: 'SDK' },
+    { name: 'OpShin', desc: 'Write Cardano smart contracts in pure Python — compiles directly to Plutus Core on-chain code.', url: 'https://github.com/OpShin/opshin', tag: 'Smart Contracts' },
+    { name: 'Koios Python', desc: 'Python wrapper for interacting with Cardano blockchain via the Koios REST API.', url: 'https://github.com/cardano-community/koios-python', tag: 'API Client' },
   ],
   Rust: [
-    { name: 'Pallas', desc: 'A Rust-native building block for the Cardano blockchain — parsing, networking, and chain-sync.', url: 'https://github.com/txpipe/pallas', tag: 'Infra' },
-    { name: 'Aiken', desc: 'A modern smart contract platform for Cardano. Write, test, and deploy smart contracts with Rust-inspired syntax.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+    { name: 'Aiken', desc: 'The most popular smart contract platform for Cardano. Modern Rust-inspired syntax, great tooling and DX.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+    { name: 'Pallas', desc: 'Growing set of Rust modules re-implementing core Ouroboros/Cardano logic — parsing, networking, chain-sync.', url: 'https://github.com/txpipe/pallas', tag: 'Infra' },
+    { name: 'Oura', desc: 'Event pipeline connecting to a Cardano node, filtering blockchain data and forwarding to sinks.', url: 'https://github.com/txpipe/oura', tag: 'Indexer' },
+    { name: 'Whisky', desc: 'Open-source Rust library for Cardano transaction building and unit testing.', url: 'https://github.com/sidan-lab/whisky', tag: 'SDK' },
   ],
   Haskell: [
     { name: 'Cardano Node', desc: 'The core node implementation powering the Cardano network. Contribute to the heart of Cardano.', url: 'https://github.com/IntersectMBO/cardano-node', tag: 'Core' },
-    { name: 'Plutus', desc: 'The smart contract platform for Cardano — write on-chain validators in Haskell/Plutus.', url: 'https://github.com/IntersectMBO/plutus', tag: 'Smart Contracts' },
+    { name: 'Plinth (Plutus Tx)', desc: 'The canonical smart contract language of Cardano — write on-chain validators in Haskell.', url: 'https://github.com/IntersectMBO/plutus', tag: 'Smart Contracts' },
+    { name: 'Atlas', desc: 'Application backend framework for Plutus smart contracts on Cardano.', url: 'https://github.com/geniusyield/atlas', tag: 'Framework' },
+    { name: 'Ogmios', desc: 'Lightweight WebSocket bridge for cardano-node — JSON/RPC via Ouroboros mini-protocols.', url: 'https://github.com/CardanoSolutions/ogmios', tag: 'Infra' },
   ],
   Go: [
-    { name: 'Gouroboros', desc: 'A Go implementation of the Cardano Ouroboros networking protocol for building Go-based tools.', url: 'https://github.com/blinklabs-io/gouroboros', tag: 'Networking' },
-    { name: 'Apollo Go', desc: 'A Go library for Cardano transaction building and blockchain interaction.', url: 'https://github.com/Salvionied/apollo', tag: 'SDK' },
+    { name: 'Apollo', desc: 'Pure Golang library providing Cardano serialization and core building blocks for transactions.', url: 'https://github.com/Salvionied/apollo', tag: 'SDK' },
+    { name: 'gOuroboros', desc: 'Go implementation of Cardano Ouroboros protocol for building Go-based blockchain tools.', url: 'https://github.com/blinklabs-io/gouroboros', tag: 'Protocol' },
+    { name: 'Adder', desc: 'Event-driven tool and library for tailing the Cardano blockchain in real-time.', url: 'https://github.com/blinklabs-io/adder', tag: 'Infra' },
+    { name: 'Cardano Node API', desc: 'REST and gRPC endpoints exposing data from a local Cardano node via Ouroboros protocols.', url: 'https://github.com/blinklabs-io/cardano-node-api', tag: 'API' },
+  ],
+  'C#': [
+    { name: 'Chrysalis', desc: 'Native .NET toolkit for Cardano — CBOR serialization, transaction building, smart contract interaction.', url: 'https://github.com/SAIB-Inc/Chrysalis', tag: 'SDK' },
+    { name: 'CardanoSharp', desc: 'Cardano cryptographic and serialization library for .NET applications.', url: 'https://github.com/CardanoSharp/cardanosharp-wallet', tag: 'SDK' },
+    { name: 'Pallas.NET', desc: '.NET wrapper for the Pallas Rust library, enabling Cardano blockchain access in .NET.', url: 'https://github.com/SAIB-Inc/Pallas.NET', tag: 'SDK' },
+    { name: 'Argus', desc: '.NET library that indexes Cardano block data into structured, queryable database formats.', url: 'https://github.com/SAIB-Inc/Argus', tag: 'Indexer' },
+  ],
+  'C++': [
+    { name: 'Lib Cardano', desc: 'High-performance library of Cardano blockchain tools in modern C++.', url: 'https://gitlab.com/viperscience/libcardano', tag: 'SDK' },
+    { name: 'Cardano C', desc: 'MISRA-compliant C library for building transactions and interacting with Cardano.', url: 'https://github.com/Biglup/cardano-c', tag: 'SDK' },
+    { name: 'Aiken', desc: 'Modern smart contract platform with Rust-like syntax — great for systems programmers.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  ],
+  C: [
+    { name: 'Cardano C', desc: 'MISRA-compliant C library for building transactions and interacting with the Cardano blockchain.', url: 'https://github.com/Biglup/cardano-c', tag: 'SDK' },
+    { name: 'Lib Cardano', desc: 'High-performance library of Cardano blockchain tools in modern C/C++.', url: 'https://gitlab.com/viperscience/libcardano', tag: 'SDK' },
+    { name: 'Aiken', desc: 'Modern smart contract platform with Rust-like syntax — familiar for C developers.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  ],
+  Scala: [
+    { name: 'Scalus', desc: 'Modern unified development platform for Cardano DApps using Scala 3 — write smart contracts in Scala.', url: 'https://github.com/nau/scalus', tag: 'Smart Contracts' },
+    { name: 'Cardano Client Lib', desc: 'JVM-compatible SDK for building Cardano transactions — works seamlessly with Scala.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Yaci DevKit', desc: 'Spin up local Cardano devnets for rapid development and testing.', url: 'https://github.com/bloxbean/yaci-devkit', tag: 'DevTools' },
+  ],
+  Swift: [
+    { name: 'CardanoKit', desc: 'Swift library for iOS/macOS Cardano integration — wallet operations, transactions, address management.', url: 'https://github.com/TokeoPay/CardanoKit', tag: 'SDK' },
+    { name: 'Cardano Developer Portal', desc: 'Tutorials, tools, and guides for every language and skill level.', url: 'https://developers.cardano.org', tag: 'Portal' },
+    { name: 'Blockfrost', desc: 'REST API providing easy, scalable access to Cardano blockchain — works great from Swift apps.', url: 'https://blockfrost.io/', tag: 'API' },
+  ],
+  Elixir: [
+    { name: 'Xogmios', desc: 'Elixir client for Cardano — queries, block streaming, and transaction submission.', url: 'https://github.com/wowica/xogmios', tag: 'SDK' },
+    { name: 'Blockfrost', desc: 'REST API providing easy access to Cardano blockchain data from any Elixir app.', url: 'https://blockfrost.io/', tag: 'API' },
+    { name: 'Aiken', desc: 'Modern smart contract platform for Cardano — write validators with great tooling.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  ],
+  PHP: [
+    { name: 'CardanoPress', desc: 'WordPress plugin providing Cardano blockchain integration to websites.', url: 'https://cardanopress.io/', tag: 'Plugin' },
+    { name: 'Blockfrost', desc: 'REST API for Cardano data — easily integrate from PHP backends.', url: 'https://blockfrost.io/', tag: 'API' },
+    { name: 'Koios', desc: 'Open-source elastic RESTful query layer for Cardano blockchain data.', url: 'https://koios.rest/', tag: 'API' },
+  ],
+  Ruby: [
+    { name: 'Blockfrost', desc: 'REST API providing easy, scalable access to Cardano blockchain from Ruby.', url: 'https://blockfrost.io/', tag: 'API' },
+    { name: 'Koios', desc: 'Open-source RESTful query layer for Cardano blockchain data.', url: 'https://koios.rest/', tag: 'API' },
+    { name: 'Aiken', desc: 'Modern smart contract platform for Cardano with great developer experience.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  ],
+  Dart: [
+    { name: 'Blockfrost', desc: 'REST API for Cardano — ideal for Flutter and Dart mobile apps.', url: 'https://blockfrost.io/', tag: 'API' },
+    { name: 'Mesh SDK', desc: 'Web3 SDK for Cardano — use with Dart web apps.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Cardano Developer Portal', desc: 'Tutorials, tools, and guides for getting started building on Cardano.', url: 'https://developers.cardano.org', tag: 'Portal' },
+  ],
+  Shell: [
+    { name: 'Cardano CLI', desc: 'Command-line interface for interacting with Cardano nodes — transaction building, queries, wallet ops.', url: 'https://github.com/IntersectMBO/cardano-cli', tag: 'CLI' },
+    { name: 'Guild Operators Suite', desc: 'Tools and scripts for stake pool setup, management, and monitoring.', url: 'https://cardano-community.github.io/guild-operators/', tag: 'SPO Tools' },
+    { name: 'SPO Scripts', desc: 'Simple scripts for creating and managing Cardano stake pools.', url: 'https://github.com/gitmachtl/scripts', tag: 'SPO Tools' },
+  ],
+  Solidity: [
+    { name: 'Aiken', desc: 'Cardano\'s answer to Solidity — modern smart contract language with great tooling and developer experience.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+    { name: 'Mesh SDK', desc: 'Build Web3 apps on Cardano — familiar patterns for Solidity/EVM developers.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Cardano Developer Portal', desc: 'Guides for EVM developers transitioning to Cardano\'s eUTxO model.', url: 'https://developers.cardano.org', tag: 'Portal' },
+  ],
+  Vue: [
+    { name: 'Mesh SDK', desc: 'Open-source Web3 SDK for Cardano — works with Vue, React, and other JS frameworks.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Lucid Evolution', desc: 'Transaction builder and off-chain framework — framework-agnostic, perfect for Vue apps.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Cardano Peer Connect', desc: 'Library implementing WebRTC communication for connecting dApps and wallets.', url: 'https://github.com/fabianbormann/cardano-peer-connect', tag: 'Wallet' },
+  ],
+  Svelte: [
+    { name: 'Mesh SDK', desc: 'Open-source Web3 SDK for Cardano — works with Svelte, React, and other JS frameworks.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Lucid Evolution', desc: 'Transaction builder for Cardano dApps — framework-agnostic, works great with SvelteKit.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+    { name: 'Blaze Cardano', desc: 'Create Cardano transactions and off-chain code for Aiken contracts.', url: 'https://github.com/butaneprotocol/blaze-cardano', tag: 'Transactions' },
   ],
 };
 
 const DEFAULT_RECO = [
   { name: 'Cardano Developer Portal', desc: 'The central hub for Cardano development — tutorials, tools, and guides for every language and skill level.', url: 'https://developers.cardano.org', tag: 'Portal' },
-  { name: 'Aiken', desc: 'A modern smart contract language for Cardano with great tooling and developer experience.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  { name: 'Cardano Tool Compass', desc: 'Interactive tool finder — discover the right Cardano SDK, library, or framework for your stack.', url: 'https://github.com/cardano-foundation/cardano-tool-compass', tag: 'Discovery' },
+  { name: 'Aiken', desc: 'The most popular smart contract language for Cardano with modern tooling and great DX.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
   { name: 'Mesh SDK', desc: 'Build Web3 applications on Cardano with JavaScript/TypeScript.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
 ];
 
