@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardano Developer Outreach — Discover Your Open Source Potential</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* CF Brand Palette */
+  --cardano-blue: #0084FF;
+  --cardano-light: #00E0FF;
+  --accent-cyan: #00E0FF;
+  --accent-purple: #BFA8FF;
+  --accent-teal: #2BFFB3;
+  --accent-green: #00BE7A;
+  /* CF Dark Palette */
+  --bg-deep: #272727;
+  --bg-card: rgba(64, 64, 64, 0.5);
+  --bg-card-hover: rgba(64, 64, 64, 0.75);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(0, 224, 255, 0.25);
+  /* CF Text Palette */
+  --text-primary: #f2f2f2;
+  --text-secondary: #c6c6c6;
+  --text-muted: #808080;
+  /* CF Typography */
+  --font-display: 'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-display);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ─── Canvas Background ─── */
+#bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── Grain Overlay ─── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ─── Layout ─── */
+.page-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ─── Navigation ─── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  backdrop-filter: blur(20px);
+  background: rgba(39, 39, 39, 0.75);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo svg { width: 28px; height: 28px; }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--accent-cyan); }
+
+/* ─── Hero ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 780px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1px solid var(--border-glow);
+  background: rgba(0, 212, 255, 0.06);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  animation: fadeInDown 0.8s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  box-shadow: 0 0 8px var(--accent-teal);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  animation: fadeInDown 0.8s 0.15s ease both;
+}
+
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--cardano-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 48px;
+  font-weight: 300;
+  animation: fadeInDown 0.8s 0.3s ease both;
+}
+
+/* ─── Search Module ─── */
+.search-module {
+  animation: fadeInUp 0.8s 0.5s ease both;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 6px;
+  max-width: 520px;
+  margin: 0 auto;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-box:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(0, 212, 255, 0.03);
+}
+
+.search-box .icon-prefix {
+  padding: 0 4px 0 16px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  padding: 14px 12px;
+  min-width: 0;
+}
+
+.search-box input::placeholder { color: var(--text-muted); }
+
+.search-box button {
+  flex-shrink: 0;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--cardano-blue), var(--accent-purple));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+}
+
+.search-box button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 132, 255, 0.35);
+}
+
+.search-box button:active { transform: translateY(0); }
+
+.search-box button.loading {
+  pointer-events: none;
+  color: transparent;
+}
+
+.search-box button.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.search-hint {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.error-message {
+  margin-top: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(255, 60, 80, 0.08);
+  border: 1px solid rgba(255, 60, 80, 0.2);
+  color: #FF6B7A;
+  font-size: 0.85rem;
+  display: none;
+}
+
+.error-message.visible { display: block; animation: fadeInUp 0.3s ease; }
+
+/* ─── Dashboard ─── */
+#dashboard {
+  display: none;
+  padding: 0 24px 100px;
+}
+
+#dashboard.visible {
+  display: block;
+  animation: fadeInUp 0.6s ease;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-glow), transparent);
+}
+
+/* Profile Card */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 32px;
+  backdrop-filter: blur(12px);
+}
+
+.profile-avatar {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  border: 2px solid var(--border-glow);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 2px;
+}
+
+.profile-info .username {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+}
+
+.profile-info .bio {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Persona Insights */
+.insights-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  backdrop-filter: blur(12px);
+}
+
+.insights-panel .panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.insights-panel .panel-title svg { color: var(--accent-cyan); }
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.insight-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.insight-row:hover { background: rgba(0, 212, 255, 0.03); }
+
+.insight-row.empty { opacity: 0.35; }
+
+.insight-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(0, 212, 255, 0.06);
+  color: var(--accent-cyan);
+}
+
+.insight-icon.green { background: rgba(0, 240, 181, 0.08); color: var(--accent-teal); }
+.insight-icon.blue { background: rgba(0, 82, 255, 0.1); color: var(--cardano-light); }
+.insight-icon.amber { background: rgba(255, 183, 50, 0.08); color: #FFB732; }
+
+.insight-body {
+  min-width: 0;
+}
+
+.insight-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  line-height: 1.3;
+}
+
+.insight-value a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.insight-value a:hover { color: var(--accent-teal); }
+
+.insight-context {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.insight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-available {
+  background: rgba(0, 240, 181, 0.1);
+  color: var(--accent-teal);
+  border: 1px solid rgba(0, 240, 181, 0.2);
+}
+
+.badge-unavailable {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.badge-hireable {
+  background: rgba(0, 240, 181, 0.12);
+  color: var(--accent-teal);
+  border: 1px solid rgba(0, 240, 181, 0.25);
+}
+
+.badge-not-hireable {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.insight-account-age {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.age-bar {
+  height: 4px;
+  flex: 1;
+  max-width: 60px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.age-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--cardano-light), var(--accent-cyan));
+  transition: width 0.8s ease;
+}
+
+@media (max-width: 768px) {
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .insight-value { max-width: 140px; }
+}
+
+@media (max-width: 480px) {
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+  .insights-panel { padding: 20px 16px; }
+  .insight-value { max-width: 100%; }
+}
+
+/* Metric Cards */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.metric-card {
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  text-align: center;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.metric-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+}
+
+.metric-card:hover::before { opacity: 1; }
+
+.metric-icon {
+  width: 36px; height: 36px;
+  margin: 0 auto 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--accent-cyan);
+}
+
+.metric-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+}
+
+/* Repos + Languages Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  backdrop-filter: blur(12px);
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-title svg { color: var(--accent-cyan); }
+
+/* Repo List */
+.repo-list { list-style: none; }
+
+.repo-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.repo-item:last-child { border-bottom: none; }
+
+.repo-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.repo-name:hover { color: var(--accent-teal); }
+
+.repo-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.repo-stats {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.repo-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Language Bars */
+.lang-list { list-style: none; }
+
+.lang-item {
+  margin-bottom: 16px;
+}
+
+.lang-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.lang-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.lang-pct {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.lang-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lang-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0;
+}
+
+/* ─── Recommendations ─── */
+.recommendations {
+  margin-bottom: 48px;
+}
+
+.reco-intro {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 650px;
+}
+
+.reco-intro strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.reco-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.reco-card {
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.reco-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cardano-blue), var(--accent-purple));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reco-card:hover {
+  border-color: var(--border-glow);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+}
+
+.reco-card:hover::after { transform: scaleX(1); }
+
+.reco-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reco-card h4 .arrow {
+  margin-left: auto;
+  color: var(--text-muted);
+  transition: transform 0.3s, color 0.3s;
+}
+
+.reco-card:hover h4 .arrow {
+  transform: translateX(4px);
+  color: var(--accent-cyan);
+}
+
+.reco-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.reco-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: rgba(0, 212, 255, 0.08);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  margin-bottom: 12px;
+}
+
+/* ─── CTA Section ─── */
+.cta-section {
+  text-align: center;
+  padding: 80px 24px;
+  position: relative;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0, 132, 255, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.cta-section p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 40px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--cardano-blue), var(--accent-purple));
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 132, 255, 0.35);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  border-color: var(--border-glow);
+  background: rgba(0, 212, 255, 0.04);
+}
+
+/* ─── Footer ─── */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ─── Email Signup ─── */
+.email-signup {
+  padding: 0 24px 60px;
+}
+
+.signup-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-teal), var(--accent-green), transparent);
+}
+
+.signup-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 240, 181, 0.08);
+  color: var(--accent-teal);
+}
+
+.signup-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.signup-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.signup-input-row {
+  display: flex;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 18px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.signup-input-row:focus-within {
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 24px rgba(0, 240, 181, 0.08);
+}
+
+.signup-input-row input[type="email"] {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 12px 14px;
+  min-width: 0;
+}
+
+.signup-input-row input[type="email"]::placeholder { color: var(--text-muted); }
+
+.signup-input-row button {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-green));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.signup-input-row button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 240, 181, 0.25);
+}
+
+.signup-input-row button:active { transform: translateY(0); }
+
+.signup-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.signup-consent input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 16px; height: 16px;
+  accent-color: var(--accent-teal);
+  cursor: pointer;
+}
+
+.signup-success {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  background: rgba(0, 240, 181, 0.08);
+  border: 1px solid rgba(0, 240, 181, 0.2);
+  color: var(--accent-teal);
+  font-size: 0.88rem;
+  font-weight: 500;
+  animation: fadeInUp 0.4s ease;
+}
+
+.signup-success.visible { display: flex; }
+
+@media (max-width: 480px) {
+  .signup-card { padding: 28px 20px; }
+  .signup-title { font-size: 1.05rem; }
+  .signup-input-row {
+    flex-direction: column;
+    padding: 8px;
+  }
+  .signup-input-row input[type="email"] {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+  .signup-input-row button {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stagger-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.stagger-in:nth-child(1) { animation-delay: 0s; }
+.stagger-in:nth-child(2) { animation-delay: 0.08s; }
+.stagger-in:nth-child(3) { animation-delay: 0.16s; }
+.stagger-in:nth-child(4) { animation-delay: 0.24s; }
+.stagger-in:nth-child(5) { animation-delay: 0.32s; }
+.stagger-in:nth-child(6) { animation-delay: 0.4s; }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .search-box .icon-prefix { display: none; }
+
+  .search-box input {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+  }
+
+  .search-box button {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .cta-buttons { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .metric-card { padding: 18px 14px; }
+  .metric-value { font-size: 1.4rem; }
+  .reco-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Toast Notifications ─── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+  animation: toastIn 0.35s ease both;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 340px;
+}
+
+.toast.toast-success {
+  background: rgba(0, 240, 181, 0.12);
+  border: 1px solid rgba(0, 240, 181, 0.25);
+  color: var(--accent-teal);
+}
+
+.toast.toast-warn {
+  background: rgba(255, 183, 50, 0.12);
+  border: 1px solid rgba(255, 183, 50, 0.25);
+  color: #FFB732;
+}
+
+.toast.toast-info {
+  background: rgba(0, 212, 255, 0.10);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: var(--accent-cyan);
+}
+
+.toast.toast-out {
+  animation: toastOut 0.3s ease forwards;
+}
+
+.toast .toast-recapture {
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 4px;
+  opacity: 0.85;
+}
+
+.toast .toast-recapture:hover {
+  opacity: 1;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(8px) scale(0.96); }
+}
+
+@media (max-width: 480px) {
+  .toast-container { left: 12px; right: 12px; bottom: 12px; }
+  .toast { max-width: 100%; font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="page-wrapper">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="nav-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="3.4" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="26.9" cy="9.7" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="26.9" cy="22.3" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="16" cy="28.6" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="5.1" cy="22.3" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="5.1" cy="9.7" r="1.8" fill="url(#nav-g1)"/>
+          <circle cx="16" cy="8" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="22.9" cy="12" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="22.9" cy="20" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="16" cy="24" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="9.1" cy="20" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="9.1" cy="12" r="1.1" fill="url(#nav-g2)" opacity="0.5"/>
+          <circle cx="16" cy="16" r="2.3" fill="url(#nav-g1)"/>
+          <defs>
+            <linearGradient id="nav-g1" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#00E0FF"/><stop offset="1" stop-color="#0084FF"/>
+            </linearGradient>
+            <linearGradient id="nav-g2" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#0084FF"/><stop offset="1" stop-color="#BFA8FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        Cardano Dev
+      </div>
+      <ul class="nav-links">
+        <li><a href="https://developers.cardano.org" target="_blank">Dev Portal</a></li>
+        <li><a href="https://github.com/cardano-foundation" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a></li>
+        <li><a href="https://discord.gg/cardano" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Community</a></li>
+        <li><a href="https://x.com/Cardano" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M4 4l11.73 16h4.27l-11.73-16z"/><path d="M4 20l6.77-6.77m2.46-2.46L20 4"/></svg>Cardano Community</a></li>
+        <li><a href="https://cardanofoundation.org/en/academy" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>Academy</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Open Source Contributor Discovery</div>
+      <h1>Discover Your Way Into<br><span class="gradient-text">Cardano Open Source</span></h1>
+      <p class="hero-subtitle">Enter your GitHub username and see how your skills and experience align with the Cardano ecosystem. Find where you can make an impact.</p>
+
+      <div class="search-module">
+        <div class="search-box" id="search-box">
+          <div class="icon-prefix">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <input type="text" id="username-input" placeholder="your-github-username" autocomplete="off" spellcheck="false">
+          <button id="fetch-btn" onclick="fetchProfile()">Explore</button>
+        </div>
+        <p class="search-hint">Public profiles only &middot; No authentication required</p>
+        <div class="error-message" id="error-msg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard">
+    <div class="container">
+
+      <!-- Profile -->
+      <div class="section-label">Developer Profile</div>
+      <div class="profile-card stagger-in" id="profile-card">
+        <img class="profile-avatar" id="profile-avatar" src="" alt="Avatar">
+        <div class="profile-info">
+          <h2 id="profile-name"></h2>
+          <div class="username" id="profile-username"></div>
+          <p class="bio" id="profile-bio"></p>
+        </div>
+      </div>
+
+      <!-- Persona Insights -->
+      <div class="section-label">Developer Persona Insights</div>
+      <div class="insights-panel stagger-in" id="insights-panel">
+        <div class="panel-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile Intelligence
+        </div>
+        <div class="insights-grid" id="insights-grid"></div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics-grid" id="metrics-grid">
+        <div class="metric-card stagger-in">
+          <div class="metric-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="metric-value" id="metric-stars">0</div>
+          <div class="metric-label">Stars Earned</div>
+        </div>
+        <div class="metric-card stagger-in">
+          <div class="metric-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="metric-value" id="metric-repos">0</div>
+          <div class="metric-label">Repositories</div>
+        </div>
+        <div class="metric-card stagger-in">
+          <div class="metric-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+          </div>
+          <div class="metric-value" id="metric-forks">0</div>
+          <div class="metric-label">Total Forks</div>
+        </div>
+        <div class="metric-card stagger-in">
+          <div class="metric-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="metric-value" id="metric-lang">—</div>
+          <div class="metric-label">Primary Language</div>
+        </div>
+      </div>
+
+      <!-- Repos + Languages -->
+      <div class="dashboard-grid">
+        <div class="panel stagger-in">
+          <div class="panel-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            Top Repositories
+          </div>
+          <ul class="repo-list" id="repo-list"></ul>
+        </div>
+        <div class="panel stagger-in">
+          <div class="panel-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Language Breakdown
+          </div>
+          <ul class="lang-list" id="lang-list"></ul>
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="recommendations stagger-in" id="reco-section">
+        <div class="section-label">Your Cardano Path</div>
+        <p class="reco-intro" id="reco-intro"></p>
+        <div class="reco-grid" id="reco-grid"></div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-section">
+        <h2>Ready to build on <span class="gradient-text">Cardano</span>?</h2>
+        <p>Join thousands of developers building the future of decentralized finance, identity, and governance.</p>
+        <div class="cta-buttons">
+          <a href="https://developers.cardano.org" target="_blank" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Developer Portal
+          </a>
+          <a href="https://discord.gg/cardano" target="_blank" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Discord Cardano Community
+          </a>
+          <a href="https://discord.gg/dQ72hkWwRH" target="_blank" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/><circle cx="12" cy="12" r="10"/></svg>
+            Discord Engineering
+          </a>
+          <a href="https://cardanofoundation.org/en/academy" target="_blank" class="btn btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+            Cardano Academy
+          </a>
+        </div>
+      </div>
+
+      <!-- Email Signup -->
+      <div class="signup-card stagger-in" style="max-width:600px;margin:0 auto 48px">
+        <div class="signup-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </div>
+        <h3 class="signup-title">Interested in learning more about hackathons and job offers in the Cardano ecosystem?</h3>
+        <p class="signup-subtitle">Stay in the loop — we'll send you relevant opportunities.</p>
+        <form class="signup-form" id="signup-form" onsubmit="submitEmailSignup(event)">
+          <div class="signup-input-row">
+            <input type="email" id="signup-email" placeholder="your@email.com" required autocomplete="email" spellcheck="false">
+            <button type="submit" id="signup-btn">Subscribe</button>
+          </div>
+          <label class="signup-consent">
+            <input type="checkbox" id="signup-consent-check" required>
+            <span>By checking this box, I consent to the Cardano Foundation reaching out to me with information about hackathons, job offers, and developer opportunities.</span>
+          </label>
+          <div class="signup-success" id="signup-success">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>You're in! We'll keep you posted on upcoming opportunities.</span>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">Cardano Developer Outreach &middot; Powered by the GitHub API &middot; Data is public and read-only</div>
+  </footer>
+
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ─── Google Sheets Lead Capture Config ───
+// Paste your Google Apps Script Web App deployment URL below:
+const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx0lMFovwyDQ1v96ukORCmbzfhYNk4NYSc_Dy7br7LdPr3LgYjjX0aVJYbGyi7O0wZ8iA/exec';
+
+// ─── Toast Notification System ───
+function showToast(message, type = 'success', duration = 4000) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = message;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('toast-out');
+    toast.addEventListener('animationend', () => toast.remove());
+  }, duration);
+}
+
+// ─── Sheet Capture Logic ───
+const _capturedProfiles = {};
+
+function captureToSheet(user, repos, metrics) {
+  if (!GOOGLE_SHEET_WEBHOOK_URL) return;
+  if (_capturedProfiles[user.login]) {
+    showToast(`Already captured <b>${user.login}</b>`, 'info');
+    return;
+  }
+  sendCapture(user, repos, metrics);
+}
+
+function sendCapture(user, repos, metrics) {
+  const params = new URLSearchParams({
+    type: 'profile',
+    login: user.login || '',
+    name: user.name || '',
+    email: user.email || '',
+    bio: (user.bio || '').substring(0, 120),
+    company: user.company || '',
+    location: user.location || '',
+    blog: user.blog || '',
+    twitter_username: user.twitter_username || '',
+    hireable: user.hireable ? 'true' : 'false',
+    public_repos: String(user.public_repos || 0),
+    followers: String(user.followers || 0),
+    following: String(user.following || 0),
+    created_at: user.created_at || '',
+    total_stars: String(metrics.totalStars || 0),
+    total_forks: String(metrics.totalForks || 0),
+    primary_language: metrics.primaryLang || '',
+    top_languages: (metrics.topLanguages || []).slice(0, 5).join(', '),
+    top_repos: (metrics.topRepoNames || []).slice(0, 5).join(', '),
+    profile_url: user.html_url || '',
+    account_age_years: String(metrics.accountAgeYears || 0),
+    follower_tier: metrics.followerTier || ''
+  }).toString();
+
+  const img = new Image();
+  img.onload = img.onerror = function() {
+    _capturedProfiles[user.login] = true;
+  };
+  img.src = GOOGLE_SHEET_WEBHOOK_URL + '?' + params;
+  showToast(`Profile <b>${user.login}</b> captured`, 'success');
+}
+
+// ─── Background Canvas ───
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, nodes = [], mouse = { x: -1000, y: -1000 };
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function createNodes() {
+    nodes = [];
+    const count = Math.floor((w * h) / 18000);
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 1.5 + 0.5,
+        o: Math.random() * 0.5 + 0.1
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    // Update + draw nodes
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 224, 255, ${n.o})`;
+      ctx.fill();
+    }
+
+    // Draw connections
+    const maxDist = 120;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(0, 132, 255, ${0.08 * (1 - dist / maxDist)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); createNodes(); });
+  resize();
+  createNodes();
+  draw();
+})();
+
+// ─── Language Colors ───
+const LANG_COLORS = {
+  JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572A5', Java: '#b07219',
+  Kotlin: '#A97BFF', Rust: '#dea584', Go: '#00ADD8', Haskell: '#5e5086',
+  'C++': '#f34b7d', C: '#555555', 'C#': '#178600', Ruby: '#701516',
+  PHP: '#4F5D95', Swift: '#F05138', Dart: '#00B4AB', Scala: '#c22d40',
+  Shell: '#89e051', HTML: '#e34c26', CSS: '#563d7c', Vue: '#41b883',
+  Solidity: '#AA6746', Nix: '#7e7eff', Plutus: '#5e5086', Lua: '#000080',
+  R: '#198CE7', SCSS: '#c6538c', Svelte: '#ff3e00', Elixir: '#6e4a7e',
+};
+
+function getLangColor(lang) {
+  return LANG_COLORS[lang] || '#8A95B0';
+}
+
+// ─── Recommendations DB ───
+const RECO_DB = {
+  Java: [
+    { name: 'Bloxbean Java SDK', desc: 'A comprehensive Java library for interacting with the Cardano blockchain — build transactions, manage wallets, and query on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Yaci DevKit', desc: 'Spin up local Cardano devnets instantly for rapid development and testing. Docker-based, zero config.', url: 'https://github.com/bloxbean/yaci-devkit', tag: 'DevTools' },
+    { name: 'Yaci Store', desc: 'A lightweight indexer and data store for Cardano blockchain data, designed for fast querying and integration.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
+  ],
+  Kotlin: [
+    { name: 'Bloxbean Java SDK', desc: 'Fully compatible with Kotlin — build Cardano transactions, manage wallets, and query on-chain data.', url: 'https://github.com/bloxbean/cardano-client-lib', tag: 'SDK' },
+    { name: 'Yaci DevKit', desc: 'Spin up local Cardano devnets instantly for rapid development and testing.', url: 'https://github.com/bloxbean/yaci-devkit', tag: 'DevTools' },
+    { name: 'Yaci Store', desc: 'A lightweight indexer for Cardano blockchain data, perfect for backend Kotlin services.', url: 'https://github.com/bloxbean/yaci-store', tag: 'Indexer' },
+  ],
+  JavaScript: [
+    { name: 'Mesh SDK', desc: 'An open-source SDK to build Web3 applications on Cardano with React, Next.js and more.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Lucid Evolution', desc: 'A library for building Cardano transactions and off-chain code for smart contracts in JS/TS.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+  ],
+  TypeScript: [
+    { name: 'Mesh SDK', desc: 'Full TypeScript SDK to build Web3 apps on Cardano with first-class type safety.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+    { name: 'Lucid Evolution', desc: 'TypeScript-native library for building Cardano transactions and interacting with smart contracts.', url: 'https://github.com/Anastasia-Labs/lucid-evolution', tag: 'Transactions' },
+  ],
+  Python: [
+    { name: 'PyCardano', desc: 'A Cardano library written in Python. Build and submit transactions, interact with smart contracts.', url: 'https://github.com/Python-Cardano/pycardano', tag: 'SDK' },
+    { name: 'OpShin', desc: 'Write Cardano smart contracts in pure Python — compiles to Plutus Core on-chain code.', url: 'https://github.com/OpShin/opshin', tag: 'Smart Contracts' },
+  ],
+  Rust: [
+    { name: 'Pallas', desc: 'A Rust-native building block for the Cardano blockchain — parsing, networking, and chain-sync.', url: 'https://github.com/txpipe/pallas', tag: 'Infra' },
+    { name: 'Aiken', desc: 'A modern smart contract platform for Cardano. Write, test, and deploy smart contracts with Rust-inspired syntax.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  ],
+  Haskell: [
+    { name: 'Cardano Node', desc: 'The core node implementation powering the Cardano network. Contribute to the heart of Cardano.', url: 'https://github.com/IntersectMBO/cardano-node', tag: 'Core' },
+    { name: 'Plutus', desc: 'The smart contract platform for Cardano — write on-chain validators in Haskell/Plutus.', url: 'https://github.com/IntersectMBO/plutus', tag: 'Smart Contracts' },
+  ],
+  Go: [
+    { name: 'Gouroboros', desc: 'A Go implementation of the Cardano Ouroboros networking protocol for building Go-based tools.', url: 'https://github.com/blinklabs-io/gouroboros', tag: 'Networking' },
+    { name: 'Apollo Go', desc: 'A Go library for Cardano transaction building and blockchain interaction.', url: 'https://github.com/Salvionied/apollo', tag: 'SDK' },
+  ],
+};
+
+const DEFAULT_RECO = [
+  { name: 'Cardano Developer Portal', desc: 'The central hub for Cardano development — tutorials, tools, and guides for every language and skill level.', url: 'https://developers.cardano.org', tag: 'Portal' },
+  { name: 'Aiken', desc: 'A modern smart contract language for Cardano with great tooling and developer experience.', url: 'https://github.com/aiken-lang/aiken', tag: 'Smart Contracts' },
+  { name: 'Mesh SDK', desc: 'Build Web3 applications on Cardano with JavaScript/TypeScript.', url: 'https://github.com/MeshJS/mesh', tag: 'SDK' },
+];
+
+// ─── Fetch Profile ───
+async function fetchProfile() {
+  const input = document.getElementById('username-input');
+  const btn = document.getElementById('fetch-btn');
+  const errEl = document.getElementById('error-msg');
+  const username = input.value.trim();
+
+  errEl.classList.remove('visible');
+
+  if (!username) {
+    showError('Please enter a GitHub username.');
+    return;
+  }
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  try {
+    // Fetch user + repos in parallel
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${encodeURIComponent(username)}`),
+      fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=stars&per_page=30&type=owner`)
+    ]);
+
+    if (userRes.status === 404) throw new Error('User not found. Please check the username.');
+    if (userRes.status === 403) throw new Error('GitHub API rate limit reached. Try again in a few minutes.');
+    if (!userRes.ok) throw new Error('Failed to fetch profile. Please try again.');
+
+    const user = await userRes.json();
+    const repos = await reposRes.json();
+
+    // Calculate metrics
+    let totalStars = 0, totalForks = 0;
+    const langMap = {};
+
+    for (const repo of repos) {
+      totalStars += repo.stargazers_count || 0;
+      totalForks += repo.forks_count || 0;
+      if (repo.language) {
+        langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+      }
+    }
+
+    const sortedLangs = Object.entries(langMap).sort((a, b) => b[1] - a[1]);
+    const primaryLang = sortedLangs.length > 0 ? sortedLangs[0][0] : 'Unknown';
+    const totalLangRepos = sortedLangs.reduce((s, l) => s + l[1], 0);
+
+    // Render profile
+    document.getElementById('profile-avatar').src = user.avatar_url;
+    document.getElementById('profile-name').textContent = user.name || user.login;
+    document.getElementById('profile-username').textContent = `@${user.login}`;
+    document.getElementById('profile-bio').textContent = user.bio || 'No bio available';
+
+    // Render persona insights
+    renderInsights(user);
+
+    // Render metrics
+    animateNumber('metric-stars', totalStars);
+    animateNumber('metric-repos', user.public_repos);
+    animateNumber('metric-forks', totalForks);
+    document.getElementById('metric-lang').textContent = primaryLang;
+
+    // Render top repos (top 6)
+    const topRepos = repos
+      .filter(r => !r.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 6);
+
+    const repoList = document.getElementById('repo-list');
+    repoList.innerHTML = topRepos.map(r => `
+      <li class="repo-item">
+        <div>
+          <a class="repo-name" href="${r.html_url}" target="_blank">${r.name}</a>
+          <div class="repo-desc">${r.description ? escapeHtml(r.description).substring(0, 80) : 'No description'}</div>
+        </div>
+        <div class="repo-stats">
+          <span class="repo-stat">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ${r.stargazers_count}
+          </span>
+          <span class="repo-stat">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+            ${r.forks_count}
+          </span>
+        </div>
+      </li>
+    `).join('');
+
+    if (topRepos.length === 0) {
+      repoList.innerHTML = '<li class="repo-item"><div class="repo-desc">No original repositories found</div></li>';
+    }
+
+    // Render languages
+    const langList = document.getElementById('lang-list');
+    const displayLangs = sortedLangs.slice(0, 6);
+    langList.innerHTML = displayLangs.map(([lang, count]) => {
+      const pct = ((count / totalLangRepos) * 100).toFixed(1);
+      const color = getLangColor(lang);
+      return `
+        <li class="lang-item">
+          <div class="lang-header">
+            <span class="lang-name"><span class="lang-dot" style="background:${color}"></span>${lang}</span>
+            <span class="lang-pct">${pct}%</span>
+          </div>
+          <div class="lang-bar-track">
+            <div class="lang-bar-fill" style="background:${color};" data-width="${pct}%"></div>
+          </div>
+        </li>
+      `;
+    }).join('');
+
+    if (displayLangs.length === 0) {
+      langList.innerHTML = '<li class="lang-item"><span class="lang-name" style="color:var(--text-muted)">No language data available</span></li>';
+    }
+
+    // Animate language bars after render
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.lang-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    });
+
+    // Render recommendations
+    const recos = RECO_DB[primaryLang] || DEFAULT_RECO;
+    const recoIntro = document.getElementById('reco-intro');
+
+    if (RECO_DB[primaryLang]) {
+      recoIntro.innerHTML = `With your <strong>${primaryLang}</strong> experience across <strong>${langMap[primaryLang]}</strong> repositories and <strong>${totalStars}</strong> stars earned, here are Cardano projects where you can start contributing today:`;
+    } else {
+      recoIntro.innerHTML = `Your diverse skill set makes you a great fit for the Cardano ecosystem. Here are some starting points to explore:`;
+    }
+
+    const recoGrid = document.getElementById('reco-grid');
+    recoGrid.innerHTML = recos.map(r => `
+      <a class="reco-card" href="${r.url}" target="_blank">
+        <span class="reco-tag">${r.tag}</span>
+        <h4>${r.name} <span class="arrow">&rarr;</span></h4>
+        <p>${r.desc}</p>
+      </a>
+    `).join('');
+
+    // Show dashboard
+    const dash = document.getElementById('dashboard');
+    dash.classList.add('visible');
+
+    // Scroll to dashboard
+    setTimeout(() => {
+      dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+
+    // ── Capture to Google Sheet ──
+    const accountAgeYears = getAccountAge(user.created_at).years;
+    const followerTier = user.followers >= 1000 ? 'Influencer'
+      : user.followers >= 100 ? 'Community leader'
+      : user.followers >= 10 ? 'Active contributor'
+      : 'Getting started';
+
+    captureToSheet(user, repos, {
+      totalStars,
+      totalForks,
+      primaryLang,
+      topLanguages: sortedLangs.slice(0, 5).map(l => l[0]),
+      topRepoNames: topRepos.map(r => r.name),
+      accountAgeYears,
+      followerTier
+    });
+
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function renderInsights(user) {
+  const grid = document.getElementById('insights-grid');
+  const accountAge = getAccountAge(user.created_at);
+  const ageYears = accountAge.years;
+  // Scale: 10+ years = 100%
+  const agePct = Math.min(ageYears / 10 * 100, 100).toFixed(0);
+  const ageLabel = ageYears >= 8 ? 'Veteran' : ageYears >= 4 ? 'Experienced' : ageYears >= 1 ? 'Growing' : 'Newcomer';
+
+  const followerTier = user.followers >= 1000 ? 'Influencer' : user.followers >= 100 ? 'Community leader' : user.followers >= 10 ? 'Active contributor' : 'Getting started';
+
+  const insights = [
+    {
+      icon: 'user', iconClass: '',
+      value: user.login,
+      context: 'Unique identifier',
+      insight: 'Active GitHub user',
+      show: true,
+    },
+    {
+      icon: 'id', iconClass: 'blue',
+      value: user.name || null,
+      context: 'Display name',
+      insight: 'Full name for outreach',
+      show: true,
+    },
+    {
+      icon: 'mail', iconClass: 'green',
+      value: user.email ? `<a href="mailto:${escapeHtml(user.email)}">${escapeHtml(user.email)}</a>` : null,
+      context: 'Public email',
+      insight: user.email ? 'Direct contact available' : 'No public email (~80% of users)',
+      badge: user.email ? 'available' : 'unavailable',
+      show: true,
+      isHtml: true,
+    },
+    {
+      icon: 'bio', iconClass: '',
+      value: user.bio || null,
+      context: 'Self-description',
+      insight: user.bio ? 'Interests & expertise signal' : 'No bio set',
+      show: true,
+    },
+    {
+      icon: 'building', iconClass: 'blue',
+      value: user.company || null,
+      context: 'Organization',
+      insight: user.company ? 'Enterprise developer' : 'Independent / not listed',
+      show: true,
+    },
+    {
+      icon: 'location', iconClass: 'amber',
+      value: user.location || null,
+      context: 'Location',
+      insight: user.location ? 'Geo-targeting available' : 'Location not shared',
+      show: true,
+    },
+    {
+      icon: 'link', iconClass: 'green',
+      value: user.blog ? `<a href="${user.blog.startsWith('http') ? escapeHtml(user.blog) : 'https://' + escapeHtml(user.blog)}" target="_blank">${escapeHtml(truncateUrl(user.blog))}</a>` : null,
+      context: 'Personal site',
+      insight: user.blog ? 'Portfolio / tech writing' : 'No website listed',
+      show: true,
+      isHtml: true,
+    },
+    {
+      icon: 'twitter', iconClass: 'blue',
+      value: user.twitter_username ? `<a href="https://x.com/${escapeHtml(user.twitter_username)}" target="_blank">@${escapeHtml(user.twitter_username)}</a>` : null,
+      context: 'X / Twitter',
+      insight: user.twitter_username ? 'Social amplification target' : 'No X handle listed',
+      show: true,
+      isHtml: true,
+    },
+    {
+      icon: 'briefcase', iconClass: 'green',
+      value: null,
+      context: 'Open to work',
+      insight: user.hireable ? 'Hiring lead — open to opportunities' : 'Not marked as hireable',
+      badge: user.hireable ? 'hireable' : 'not-hireable',
+      show: true,
+    },
+    {
+      icon: 'followers', iconClass: '',
+      value: (user.followers || 0).toLocaleString(),
+      context: `Followers · ${followerTier}`,
+      insight: 'Community influence level',
+      show: true,
+    },
+    {
+      icon: 'following', iconClass: 'blue',
+      value: (user.following || 0).toLocaleString(),
+      context: 'Following',
+      insight: 'Network size & engagement',
+      show: true,
+    },
+    {
+      icon: 'calendar', iconClass: 'amber',
+      value: null,
+      context: 'Account created ' + new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+      insight: `${ageLabel} · ${accountAge.display}`,
+      ageBar: agePct,
+      show: true,
+    },
+  ];
+
+  const ICONS = {
+    user: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg>',
+    id: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>',
+    mail: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+    bio: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    building: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><line x1="8" y1="6" x2="10" y2="6"/><line x1="14" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/></svg>',
+    location: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    link: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    twitter: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>',
+    briefcase: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+    followers: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    following: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
+    calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  };
+
+  grid.innerHTML = insights.filter(i => i.icon === 'calendar').map(i => {
+    const isEmpty = !i.value && !i.badge && !i.ageBar;
+    let valueHtml = '';
+
+    if (i.badge) {
+      const badgeClass = i.badge === 'available' ? 'badge-available' :
+                         i.badge === 'hireable' ? 'badge-hireable' :
+                         i.badge === 'unavailable' ? 'badge-unavailable' : 'badge-not-hireable';
+      const badgeLabel = i.badge === 'available' ? 'Available' :
+                         i.badge === 'hireable' ? 'Open to work' :
+                         i.badge === 'unavailable' ? 'Not listed' : 'Not set';
+      valueHtml = `<span class="insight-badge ${badgeClass}">${badgeLabel}</span>`;
+    } else if (i.ageBar !== undefined) {
+      valueHtml = `<div class="insight-account-age"><span>${i.insight}</span><div class="age-bar"><div class="age-bar-fill" style="width:${i.ageBar}%"></div></div></div>`;
+    } else if (i.isHtml && i.value) {
+      valueHtml = `<div class="insight-value">${i.value}</div>`;
+    } else {
+      valueHtml = `<div class="insight-value">${i.value ? escapeHtml(String(i.value)) : '<span style="color:var(--text-muted)">—</span>'}</div>`;
+    }
+
+    const contextLine = i.ageBar ? i.context : `${i.context} · ${i.insight}`;
+
+    return `
+      <div class="insight-row${isEmpty && !i.badge && !i.ageBar ? ' empty' : ''}">
+        <div class="insight-icon ${i.iconClass}">${ICONS[i.icon]}</div>
+        <div class="insight-body">
+          ${valueHtml}
+          <div class="insight-context">${contextLine}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function getAccountAge(dateStr) {
+  const created = new Date(dateStr);
+  const now = new Date();
+  let years = now.getFullYear() - created.getFullYear();
+  let months = now.getMonth() - created.getMonth();
+  if (months < 0) { years--; months += 12; }
+  if (years > 0) {
+    return { years, display: years === 1 ? '1 year' : `${years} years` };
+  }
+  return { years: 0, display: months <= 1 ? '< 1 month' : `${months} months` };
+}
+
+function truncateUrl(url) {
+  return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+}
+
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+
+function animateNumber(id, target) {
+  const el = document.getElementById(id);
+  if (target === 0) { el.textContent = '0'; return; }
+  const duration = 800;
+  const start = performance.now();
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString();
+  }
+  requestAnimationFrame(tick);
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ─── Email Signup Submission ───
+function submitEmailSignup(e) {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value.trim();
+  const consent = document.getElementById('signup-consent-check').checked;
+  const btn = document.getElementById('signup-btn');
+  const currentUser = document.getElementById('username-input').value.trim();
+
+  if (!email || !consent) return;
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  if (GOOGLE_SHEET_WEBHOOK_URL) {
+    const params = new URLSearchParams({
+      type: 'email_append',
+      login: currentUser,
+      signup_email: email,
+      consent: 'true'
+    }).toString();
+    const img = new Image();
+    img.src = GOOGLE_SHEET_WEBHOOK_URL + '?' + params;
+  }
+
+  // Show success
+  document.getElementById('signup-form').querySelector('.signup-input-row').style.display = 'none';
+  document.getElementById('signup-form').querySelector('.signup-consent').style.display = 'none';
+  document.getElementById('signup-success').classList.add('visible');
+  showToast('Email registered successfully!', 'success');
+}
+
+// Enter key support
+document.getElementById('username-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') fetchProfile();
+});
+</script>
+</body>
+</html>

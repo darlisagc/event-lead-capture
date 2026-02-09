@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Welcome — Cardano Foundation</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary: #272727;
+  --bg-surface: #404040;
+  --grey-mid: #808080;
+  --grey-light: #c6c6c6;
+  --grey-200: #d9d9d9;
+  --grey-100: #f2f2f2;
+  --cyan: #00E0FF;
+  --blue: #0084FF;
+  --purple: #BFA8FF;
+  --green-light: #2BFFB3;
+  --green: #00BE7A;
+  --font: 'Switzer', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html { height: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg-primary);
+  color: var(--grey-100);
+  min-height: 100%;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ─── Ambient Glow ─── */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(100px);
+  opacity: 0;
+  animation: glowIn 2s 0.4s ease forwards;
+}
+
+body::before {
+  width: 420px; height: 420px;
+  top: -120px; left: -100px;
+  background: radial-gradient(circle, rgba(0, 224, 255, 0.12), rgba(0, 132, 255, 0.06), transparent 70%);
+}
+
+body::after {
+  width: 380px; height: 380px;
+  bottom: -100px; right: -80px;
+  background: radial-gradient(circle, rgba(0, 132, 255, 0.10), rgba(191, 168, 255, 0.05), transparent 70%);
+}
+
+@keyframes glowIn {
+  to { opacity: 1; }
+}
+
+/* ─── Layout ─── */
+.page {
+  width: 100%;
+  max-width: 440px;
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Logo ─── */
+.logo {
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: logoIn 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes logoIn {
+  to { opacity: 1; transform: scale(1); }
+}
+
+.logo svg { display: block; }
+
+/* ─── Heading ─── */
+.heading {
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.6s 0.3s ease forwards;
+}
+
+.heading h1 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.heading p {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--grey-mid);
+  line-height: 1.5;
+}
+
+/* ─── Cards ─── */
+.choices {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.choice-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 22px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(64, 64, 64, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-decoration: none;
+  color: var(--grey-100);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.choice-card:nth-child(1) { animation: fadeUp 0.5s 0.5s ease forwards; }
+.choice-card:nth-child(2) { animation: fadeUp 0.5s 0.65s ease forwards; }
+
+/* Gradient border glow on hover / active */
+.choice-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.choice-card.business::before {
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+}
+
+.choice-card.developer::before {
+  background: linear-gradient(135deg, var(--green-light), var(--green));
+}
+
+.choice-card:hover::before,
+.choice-card:active::before { opacity: 1; }
+
+.choice-card:hover {
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+
+.choice-card.business:hover {
+  box-shadow: 0 8px 32px rgba(0, 132, 255, 0.12);
+}
+
+.choice-card.developer:hover {
+  box-shadow: 0 8px 32px rgba(0, 190, 122, 0.12);
+}
+
+.choice-card:active {
+  transform: scale(0.98);
+}
+
+/* Icon circle */
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.business .card-icon {
+  background: linear-gradient(135deg, rgba(0, 224, 255, 0.12), rgba(0, 132, 255, 0.12));
+  color: var(--cyan);
+}
+
+.developer .card-icon {
+  background: linear-gradient(135deg, rgba(43, 255, 179, 0.12), rgba(0, 190, 122, 0.12));
+  color: var(--green-light);
+}
+
+.card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-body h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+
+.card-body p {
+  font-size: 0.82rem;
+  color: var(--grey-mid);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.card-arrow {
+  flex-shrink: 0;
+  color: var(--grey-mid);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.choice-card:hover .card-arrow {
+  transform: translateX(3px);
+}
+
+.choice-card.business:hover .card-arrow { color: var(--cyan); }
+.choice-card.developer:hover .card-arrow { color: var(--green-light); }
+
+/* ─── Footer Mark ─── */
+.footer-mark {
+  margin-top: 56px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(128, 128, 128, 0.5);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.5s 0.9s ease forwards;
+}
+
+/* ─── Animation Keyframes ─── */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Large screens — subtle refinement ─── */
+@media (min-width: 481px) {
+  .heading h1 { font-size: 1.85rem; }
+  .choice-card { padding: 26px 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Cardano Starburst Logo -->
+  <div class="logo">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring: 6 satellite dots -->
+      <circle cx="28" cy="6"  r="3.2" fill="url(#g1)"/>
+      <circle cx="47" cy="17" r="3.2" fill="url(#g1)"/>
+      <circle cx="47" cy="39" r="3.2" fill="url(#g1)"/>
+      <circle cx="28" cy="50" r="3.2" fill="url(#g1)"/>
+      <circle cx="9"  cy="39" r="3.2" fill="url(#g1)"/>
+      <circle cx="9"  cy="17" r="3.2" fill="url(#g1)"/>
+      <!-- Inner ring: 6 smaller dots -->
+      <circle cx="28" cy="14" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <circle cx="40" cy="21" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <circle cx="40" cy="35" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <circle cx="28" cy="42" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <circle cx="16" cy="35" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <circle cx="16" cy="21" r="2"   fill="url(#g2)" opacity="0.5"/>
+      <!-- Centre dot -->
+      <circle cx="28" cy="28" r="4" fill="url(#g1)"/>
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00E0FF"/>
+          <stop offset="1" stop-color="#0084FF"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#0084FF"/>
+          <stop offset="1" stop-color="#BFA8FF"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Heading -->
+  <div class="heading">
+    <h1>Welcome to Cardano</h1>
+    <p>Tell us how you're joining today</p>
+  </div>
+
+  <!-- Choices -->
+  <div class="choices">
+
+    <a class="choice-card business" href="https://cardanofoundation.org/contact" id="business-card">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          <line x1="12" y1="12" x2="12" y2="12.01"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h2>I'm here as a Business</h2>
+        <p>Partnerships, enterprise solutions &amp; integrations</p>
+      </div>
+      <div class="card-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+    <a class="choice-card developer" href="index.html" id="developer-card">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h2>I'm here as a Developer</h2>
+        <p>Open source, tooling &amp; building on Cardano</p>
+      </div>
+      <div class="card-arrow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer-mark">Cardano Foundation</div>
+
+</div>
+
+</body>
+</html>
